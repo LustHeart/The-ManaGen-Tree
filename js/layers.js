@@ -6,7 +6,7 @@ addLayer("m", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#fff000",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "mana", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -14,7 +14,9 @@ addLayer("m", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.4, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
+        let mult = new Decimal(1)
+            if (hasUpgrade('m', 13)) mult = mult.times(upgradeEffect('m', 13))
+            if (hasUpgrade('m', 14)) mult = mult.times(upgradeEffect('m', 14))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
